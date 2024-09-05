@@ -6,4 +6,87 @@
     text-decoration: none;
     outline: none;
     font-family: 'Ubuntu', sans-serif;
+    list-style: none;
+}
+
+.max-width{
+    max-width: 1300px;
+    padding: 0 80px;
+}
+
+/* Navigation Styling */
+
+.navbar{
+    position: fixed;
+    width: 100%;
+    background-color: lightgoldenrodyellow;
+    padding: 15px 0;
+    color: white;
+}
+
+.navbar .menu li{
+    display: inline-block;
+}
+
+.navbar .nav-icons{
+    display: flex;
+}
+
+
+.navbar .nav-icons .fa-search{
+    font-size: 25px;
+    padding: 0 6px;
+}
+
+.navbar .nav-icons .fa-search:hover{
+    color: orange;
+}
+
+.navbar .nav-icons .fa-shopping-cart{
+    color: red;
+    font-size: 25px;
+    padding: 0 6px;
+}
+
+.navbar .nav-icons .fa-shopping-cart:hover{
+    color: orange;
+}
+.navbar .menu li a{
+    color: white;
+    font-size: 20px;
+    font-weight: 500;
+    margin-left: 25px;
+}
+
+.navbar .logo a:hover{
+    color: purple;
+    padding: 6px 12px;
+    border-radius: 10px;
+}
+
+.navbar .menu li a:hover{
+    color: orange;
+    padding: 6px 12px;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+}
+.navbar .logo a{
+    font-size: 35px;
+    font-weight: 700;
+    color: white;
+    transition: all 0.3s ease;
+}
+
+.navbar .menu li a{
+    color: red; 
+}
+
+.navbar .logo a i{
+    color: blue;
+}
+.navbar .max-width{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
 }
