@@ -14,6 +14,24 @@
     padding: 0 80px;
 }
 
+section{
+  padding: 0 100px;  
+}
+
+.btn{
+    background-color: brown;
+    padding: 10px 20px;
+    border-radius: 12px;
+    color: maroon;
+    transition: all 0.3s ease;
+}
+
+
+.btn:hover{
+    background: luminousgreen;
+    color: red;
+    border: 2px solid red;
+}
 /* Navigation Styling */
 
 .navbar{
@@ -90,3 +108,49 @@
     justify-content: space-between;
 
 }
+
+/* Home Styling */
+
+
+
+.home .container .wrapper .slide{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-top: 9rem;
+
+}
+
+.home{
+    background-color: brown;
+    height: 100vh;
+}
+
+.home .container .wrapper .slide .img img{
+    width: 510px;
+    border-radius: 10px;
+    height: 340px;
+    object-fit: cover;
+}
+
+.home .container .wrapper .slide .content span{
+    font-size: 60px;
+    color: green;
+}
+.home .container .wrapper .slide .content h3{
+    font-size: 40px;
+}
+.home .container .wrapper .slide .content p{
+    font-size: 20px;
+    margin-bottom: 20px;
+    align-items: justify;
+}
+
+
+.home .container .wrapper .slide .content a{
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
