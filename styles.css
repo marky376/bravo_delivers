@@ -206,10 +206,6 @@ section {
 /* Container for cards */
 .special .container{
     display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    gap: 32px;
-    flex-basis: 33%;
 }
 .special .card{
     background: white;
@@ -250,4 +246,9 @@ section {
 
 .special .card .review i{
     color: red;
+}
+
+.special .max-width{
+    max-width: 1300px;
+    padding: 0 40px;
 }
