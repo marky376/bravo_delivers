@@ -209,8 +209,7 @@ section {
     align-items: center;
     flex-wrap: wrap;
     gap: 32px;
-    padding-top: 9rem;
-    width: 100%;
+    flex-basis: 33%;
 }
 .special .card{
     background: white;
