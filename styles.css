@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap');
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -7,18 +7,19 @@
     outline: none;
     font-family: 'Ubuntu', sans-serif;
     list-style: none;
+    
 }
 
-.max-width{
+.max-width {
     max-width: 1300px;
     padding: 0 80px;
 }
 
-section{
-  padding: 0 100px;  
+section {
+    padding: 0 100px;
 }
 
-.btn{
+.btn {
     background-color: brown;
     padding: 10px 20px;
     border-radius: 12px;
@@ -26,131 +27,226 @@ section{
     transition: all 0.3s ease;
 }
 
-
-.btn:hover{
-    background: luminousgreen;
+.btn:hover {
+    background: limegreen;
     color: red;
     border: 2px solid red;
 }
-/* Navigation Styling */
 
-.navbar{
+/* Navigation Styling */
+.navbar {
     position: fixed;
+    top: 0;
     width: 100%;
     background-color: lightgoldenrodyellow;
     padding: 15px 0;
+    z-index: 1000;
     color: white;
 }
 
-.navbar .menu li{
+.navbar .menu li {
     display: inline-block;
 }
 
-.navbar .nav-icons{
+.navbar .nav-icons {
     display: flex;
 }
 
-
-.navbar .nav-icons .fa-search{
+.navbar .nav-icons .fa-search {
     font-size: 25px;
     padding: 0 6px;
 }
 
-.navbar .nav-icons .fa-search:hover{
+.navbar .nav-icons .fa-search:hover {
     color: orange;
 }
 
-.navbar .nav-icons .fa-shopping-cart{
+.navbar .nav-icons .fa-shopping-cart {
     color: red;
     font-size: 25px;
     padding: 0 6px;
 }
 
-.navbar .nav-icons .fa-shopping-cart:hover{
+.navbar .nav-icons .fa-shopping-cart:hover {
     color: orange;
 }
-.navbar .menu li a{
+
+.navbar .menu li a {
     color: white;
     font-size: 20px;
     font-weight: 500;
     margin-left: 25px;
 }
 
-.navbar .logo a:hover{
+.navbar .logo a:hover {
     color: purple;
     padding: 6px 12px;
     border-radius: 10px;
 }
 
-.navbar .menu li a:hover{
+.navbar .menu li a:hover {
     color: orange;
     padding: 6px 12px;
     border-radius: 10px;
     transition: all 0.3s ease;
 }
-.navbar .logo a{
+
+.navbar .logo a {
     font-size: 35px;
     font-weight: 700;
     color: white;
     transition: all 0.3s ease;
 }
 
-.navbar .menu li a{
-    color: red; 
-}
-
-.navbar .logo a i{
+.navbar .logo a i {
     color: blue;
 }
-.navbar .max-width{
+
+.navbar .max-width {
     display: flex;
     align-items: center;
     justify-content: space-between;
-
 }
 
 /* Home Styling */
+.home {
+    height: 100vh;
+    padding-top: 80px; /* Adds space to prevent overlap with the navbar */
+    background-color: brown;
+}
 
+.home .swiper {
+    position: relative;
+    z-index: 1; /* Keep swiper visible over other elements */
+}
 
-
-.home .container .wrapper .slide{
+.home .swiper-wrapper {
     display: flex;
     align-items: center;
-    flex-wrap: wrap;
+    height: calc(100vh - 80px); /* Adjust height to fill screen below navbar */
+}
+
+.home .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: 32px;
-    padding-top: 9rem;
-
+    padding: 20px;
 }
 
-.home{
-    background-color: brown;
-    height: 100vh;
-}
-
-.home .container .wrapper .slide .img img{
+.home .swiper-slide .image img {
     width: 510px;
     border-radius: 10px;
     height: 340px;
     object-fit: cover;
 }
 
-.home .container .wrapper .slide .content span{
+.home .swiper-slide .content {
+    max-width: 500px;
+}
+
+.home .swiper-slide .content span {
     font-size: 60px;
     color: green;
 }
-.home .container .wrapper .slide .content h3{
+
+.home .swiper-slide .content h3 {
     font-size: 40px;
 }
-.home .container .wrapper .slide .content p{
+
+.home .swiper-slide .content p {
     font-size: 20px;
     margin-bottom: 20px;
-    align-items: justify;
+    text-align: justify;
 }
 
-
-.home .container .wrapper .slide .content a{
+.home .swiper-slide .content a {
     font-size: 20px;
     font-weight: 500;
     margin-top: 20px;
 }
 
+/* Special section styling */
+.special{
+    padding: 100px 0;
+    
+}
+
+.title{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+
+.title::before{
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 3px;
+    background: pink;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.title::after{
+    content: "special meals";
+    position: absolute;
+    background: red;
+    color: yellowgreen;
+    bottom: -12px;
+    left: 50%;
+    padding: 5px;
+    font-size: 20px;
+    transform: translateX(-50%);
+}
+/* Container for cards */
+.special .container{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
+}
+.special .card{
+    background: white;
+    border-radius: 8px;
+    padding: 25px 35px;
+}
+.special .card:hover{
+    transform: translateY(-10px);
+}
+
+.special .card img{
+    width: 410px;
+    height: 240px;
+    object-fit: cover;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.special .card h3{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.special .card i{
+    color: red;
+    margin-bottom: 10px;
+}
+
+.special .card h2{
+    margin-bottom: 10px;
+}
+
+.special .card .review{
+    padding-right: 20px;
+    margin-bottom: 10px;
+}
+
+.special .card .review i{
+    color: red;
+}
