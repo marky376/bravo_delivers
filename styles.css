@@ -206,6 +206,11 @@ section {
 /* Container for cards */
 .special .container{
     display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-top: 9rem;
+    width: 100%;
 }
 .special .card{
     background: white;
