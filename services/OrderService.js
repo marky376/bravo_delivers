@@ -1,122 +1,83 @@
-import { Order, OrderItem } from '../models';
-import { APIError } from '../utils/APIError';
+import { APIError } from '../utils/error';
+import { Order } from '../models'; // Import your Order model
 
 /**
  * Create a new order.
- * @param {Object} orderData - The order details
- * @returns {Promise<Order>} - The created order
+ * @param {Object} orderData - Data for creating a new order
+ * @returns {Promise<Object>} - The created order
  */
 const createOrder = async (orderData) => {
     try {
-        // Validate the order data
-        if (!orderData.customerId || !orderData.items || !orderData.items.length || !orderData.deliveryAddress) {
-            throw new APIError(400, 'Missing required fields: customerId, items, or deliveryAddress.');
-        }
-
-        // Calculate the total cost of the order
-        let totalCost = 0;
-        const itemDetails = [];
-
-        for (const item of orderData.items) {
-            const menuItem = await MenuService.getMenuItemById(item.menuItemId);
-
-            if (!menuItem) {
-                throw new APIError(400, `Menu item with ID ${item.menuItemId} not found`);
-            }
-
-            const itemTotal = menuItem.price * item.quantity;
-            totalCost += itemTotal;
-
-            itemDetails.push({
-                menuItemId: item.menuItemId,
-                quantity: item.quantity,
-                price: menuItem.price,
-                total: itemTotal
-            });
-        }
-
-        // Create the order with its items
-        const order = await Order.create({
-            customerId: orderData.customerId,
-            totalCost,
-            deliveryAddress: orderData.deliveryAddress,
-            status: 'pending', // Set initial status to 'pending'
+        const newOrder = await Order.create({
+            ...orderData,
+            createdAt: new Date(),
+            updatedAt: new Date()
         });
 
-        // Add items to the order
-        await Promise.all(itemDetails.map(item => 
-            OrderItem.create({
-                orderId: order.id,
-                ...item
-            })
-        ));
-
-        return order;
+        return newOrder;
     } catch (error) {
-        throw new APIError(500, 'Error creating order: ' + error.message);
+        throw new APIError(500, 'Error creating order');
     }
 };
 
 /**
  * Get an order by ID.
- * @param {number} id - The ID of the order to fetch
- * @returns {Promise<Order>} - The fetched order
+ * @param {string} id - The ID of the order to fetch
+ * @returns {Promise<Object>} - The fetched order
  */
 const getOrderById = async (id) => {
     try {
-        const order = await Order.findByPk(id, {
-            include: [{ model: OrderItem }] // Include related OrderItems
-        });
-
+        const order = await Order.findByPk(id);
         if (!order) {
             throw new APIError(404, `Order with ID ${id} not found`);
         }
 
         return order;
     } catch (error) {
-        throw new APIError(500, 'Error fetching order: ' + error.message);
+        throw new APIError(500, 'Error fetching order');
     }
 };
 
 /**
  * Update an order by ID.
- * @param {number} id - The ID of the order to update
- * @param {Object} updateData - The data to update
- * @returns {Promise<Order>} - The updated order
+ * @param {string} id - The ID of the order to update
+ * @param {Object} updateData - Data to update the order with
+ * @returns {Promise<Object>} - The updated order
  */
 const updateOrder = async (id, updateData) => {
     try {
-        const [updated] = await Order.update(updateData, {
+        const [affectedRows, [updatedOrder]] = await Order.update(updateData, {
             where: { id },
-            returning: true // Return the updated order
+            returning: true
         });
 
-        if (!updated) {
+        if (affectedRows === 0) {
             throw new APIError(404, `Order with ID ${id} not found`);
         }
 
-        return await getOrderById(id);
+        return updatedOrder;
     } catch (error) {
-        throw new APIError(500, 'Error updating order: ' + error.message);
+        throw new APIError(500, 'Error updating order');
     }
 };
 
 /**
  * Delete an order by ID.
- * @param {number} id - The ID of the order to delete
- * @returns {Promise<void>}
+ * @param {string} id - The ID of the order to delete
+ * @returns {Promise<Object>} - The deleted order
  */
 const deleteOrder = async (id) => {
     try {
-        const deleted = await Order.destroy({
-            where: { id }
-        });
-
-        if (!deleted) {
+        const order = await Order.findByPk(id);
+        if (!order) {
             throw new APIError(404, `Order with ID ${id} not found`);
         }
+
+        await Order.destroy({ where: { id } });
+
+        return order;
     } catch (error) {
-        throw new APIError(500, 'Error deleting order: ' + error.message);
+        throw new APIError(500, 'Error deleting order');
     }
 };
 
