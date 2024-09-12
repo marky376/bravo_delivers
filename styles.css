@@ -252,3 +252,90 @@ section {
     max-width: 1300px;
     padding: 0 40px;
 }
+/* Box Styling */
+
+.box{
+    padding: 100px 0;
+    
+}
+
+.title{
+    text-align: center;
+    font-size: 40px;
+    font-weight: 600;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    position: relative;
+}
+
+
+.title::before{
+    content: "";
+    position: absolute;
+    width: 200px;
+    height: 3px;
+    background: pink;
+    bottom: 0px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.title::after{
+    content: "special meals";
+    position: absolute;
+    background: red;
+    color: yellowgreen;
+    bottom: -12px;
+    left: 50%;
+    padding: 5px;
+    font-size: 20px;
+    transform: translateX(-50%);
+}
+/* Container for cards */
+.box .container{
+    display: flex;
+}
+.box .card{
+    background: white;
+    border-radius: 8px;
+    padding: 25px 35px;
+}
+.box .card:hover{
+    transform: translateY(-10px);
+}
+
+.box .card img{
+    width: 310px;
+    height: 240px;
+    object-fit: cover;
+    border: 2px solid #f1f1f1;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.box .card h3{
+    font-size: 25px;
+    margin-bottom: 20px;
+}
+
+.box .card i{
+    color: red;
+    margin-bottom: 10px;
+}
+
+.box .card h2{
+    margin-bottom: 10px;
+}
+
+.box .card .review{
+    padding-right: 20px;
+    margin-bottom: 10px;
+}
+
+.box .card .review i{
+    color: red;
+}
+
+.box .max-width{
+    max-width: 1300px;
+    padding: 0 40px;
+}
