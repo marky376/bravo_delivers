@@ -2,7 +2,7 @@ import { Express } from 'express';
 import RestaurantController from '../controllers/RestaurantController';
 import OrderController from '../controllers/OrderController';
 import MenuController from '../controllers/MenuController';
-import { authenticaeUser } from '../middlewares/auth';
+import { authenticateUser } from '../middlewares/auth';
 import { APIError, errorResponse } from '../middlewares/error';
 
 
