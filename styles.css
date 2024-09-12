@@ -10,6 +10,9 @@
     
 }
 
+html{
+    scroll-behavior: smooth;
+}
 .max-width {
     max-width: 1300px;
     padding: 0 80px;
@@ -293,6 +296,7 @@ section {
 /* Container for cards */
 .box .container{
     display: flex;
+    margin-bottom: 20px;
 }
 .box .card{
     background: white;
@@ -338,4 +342,150 @@ section {
 .box .max-width{
     max-width: 1300px;
     padding: 0 40px;
+}
+/* Featured Meals Styling */
+.featured {
+    height: auto;
+    padding-top: 80px; /* Adds space to prevent overlap with the navbar */
+    background-color: brown;
+}
+
+.featured .container.wrapper .slide{
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 32px;
+    padding-top: 5rem;
+    padding-bottom: 5rem;
+    width: 100%;
+    background: lightgray;
+    padding-left: 3rem;
+    padding-right: 3rem;
+    border-radius: 10px;
+    margin-bottom: 5rem;
+}
+.featured .swiper {
+    position: relative;
+    z-index: 1; /* Keep swiper visible over other elements */
+}
+
+.featured .swiper-wrapper {
+    display: flex;
+    align-items: center;
+    height: calc(100vh - 80px); /* Adjust height to fill screen below navbar */
+}
+
+.featured .swiper-slide {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 32px;
+    padding: 20px;
+}
+
+.featured .swiper-slide .image img {
+    width: 510px;
+    border-radius: 10px;
+    height: 340px;
+    object-fit: cover;
+}
+
+.featured .swiper-slide .content {
+    max-width: 500px;
+}
+
+.featured .swiper-slide .content span {
+    font-size: 60px;
+    color: green;
+}
+
+.featured .swiper-slide .content h3 {
+    font-size: 40px;
+}
+
+.featured .swiper-slide .content p {
+    font-size: 20px;
+    margin-bottom: 20px;
+    text-align: justify;
+}
+
+.featured .swiper-slide .content a {
+    font-size: 20px;
+    font-weight: 500;
+    margin-top: 20px;
+}
+
+/* About Styling */
+
+.about{
+    margin-bottom: 9rem;
+
+}
+.about .card{
+    display: flex;
+    align-items: center;
+    gap: 32px;
+    flex-basis: 50%;
+    margin-bottom: 20px;
+}
+
+.about .card .box-1 img{
+    height: 200px;
+    width: 200px;
+    object-fit: cover;
+}
+.about .card .box-2 p{
+    padding: 15px 0;
+}
+
+/* Contact Styling */
+.contact .form input{
+    height: 100%;
+    width: 100%;
+    border: 1px solide #f1f1f1;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 18px;
+    margin-bottom: 6px;
+}
+
+.contact form textarea{
+    height: 100%;
+    width: 100%;
+    border: 1px solide #f1f1f1;
+    border-radius: 6px;
+    padding: 0 15px;
+    font-size: 18px;
+    margin-bottom: 6px;
+    resize: none;
+}
+.contact .max-width{
+    background-color: blue;
+    padding: 5rem;
+    padding-bottom: 5rem;
+    border-radius: 10px;
+
+}
+.contact .max-width .form{
+    background-color: black;
+    border-radius: 6px;
+    padding: 15px;
+}
+
+.contact{
+    margin-bottom: 8rem;
+}
+
+
+/* Footer Styling */
+footer{
+    padding: 35px 0;
+    background-color: lightgray;
+    color: #000;
+    text-align: center;
+    font-size: 20px;
+}
+
+footer a{
+    color: red;
 }
