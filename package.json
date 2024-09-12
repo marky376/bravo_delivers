@@ -1,0 +1,20 @@
+{
+  "name": "bravo_delivers",
+  "version": "1.0.0",
+  "description": "The Restaurant Delivery Website is a web application designed to offer users a simple, intuitive way to browse restaurants, view menus, place orders, and track deliveries in real-time. This platform provides an easy-to-use interface for both customers and restaurant owners, ensuring a seamless food ordering and delivery experience.",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.6.2"
+  },
+  "devDependencies": {}
+}
