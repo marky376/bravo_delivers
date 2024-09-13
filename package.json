@@ -3,8 +3,9 @@
   "version": "1.0.0",
   "description": "The Restaurant Delivery Website is a web application designed to offer users a simple, intuitive way to browse restaurants, view menus, place orders, and track deliveries in real-time. This platform provides an easy-to-use interface for both customers and restaurant owners, ensuring a seamless food ordering and delivery experience.",
   "main": "main.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
@@ -19,6 +20,9 @@
     "sequelize": "^6.37.3"
   },
   "devDependencies": {
+    "@babel/core": "^7.25.2",
+    "@babel/preset-env": "^7.25.4",
+    "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "supertest": "^7.0.0"
   }

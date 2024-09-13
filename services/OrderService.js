@@ -1,5 +1,5 @@
 import { APIError } from '../utils/error';
-import { Order } from '../models'; // Import your Order model
+import { Order } from '../models/Order'; // Import your Order model
 
 /**
  * Create a new order.

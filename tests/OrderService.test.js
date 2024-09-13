@@ -1,6 +1,6 @@
-const { createOrder, getOrderById, updateOrder, deleteOrder } = require('./services/OrderService');
-const { Order, OrderItem } = require('../models');
-const { sequelize } = require('../database');
+const { createOrder, getOrderById, updateOrder, deleteOrder } = require('../services/OrderService');
+const { Order} = require('../models/Order.js');
+const { sequelize } = require('../config/database.js');
 
 beforeAll(async () => {
     await sequelize.sync({ force: true }); // Create tables

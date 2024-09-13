@@ -1,48 +1,52 @@
-import { Express } from 'express';
-import RestaurantController from '../controllers/RestaurantController';
-import OrderController from '../controllers/OrderController';
-import MenuController from '../controllers/MenuController';
-import { authenticateUser } from '../middlewares/auth';
-import { APIError, errorResponse } from '../middlewares/error';
-
+import { Router } from 'express';
+import RestaurantController from '../controllers/RestaurantController.js';
+import OrderController from '../controllers/OrderController.js';
+import MenuController from '../controllers/MenuController.js';
+import { authenticateUser } from '../middlewares/auth.js';
+import { APIError, errorResponse } from '../middlewares/error.js';
+import orderRoutes from './orderRoutes.js'; // Ensure the file name is correct
 
 /**
  * Injects routes with their handlers to the given Express application.
- * @param {Espress} api
+ * @param {Express} api
  */
-
 const injectRoutes = (api) => {
-    //Public routes
-    api.get('/status', RestaurantController.getStatus);
-    api.get('/menu', MenuController.getMenu);
+    // Create a new router instance
+    const router = Router();
+
+    // Public routes
+    router.get('/status', RestaurantController.getStatus);
+    router.get('/menu', MenuController.getMenu);
 
     // Authentication routes
-    api.post ('/auth/login', RestaurantController.login);
-    api.post('/auth/register', MenuController.getMenu);
+    router.post('/auth/login', RestaurantController.login);
+    router.post('/auth/register', MenuController.register); // Assuming there’s a register method
 
     // Protected routes
-    api.post('/orders', authenticateUser, OrderController.createOrder);
-    api.get('/orders/:id', authenticateUser, OrderController.getOrder);
-    api.put('/orders/:id', authenticateUser, OrderController.updateOrder);
-    api.delete('/orders/:id', authenticateUser, OrderController.deleteOrder);
-
+    router.post('/orders', authenticateUser, OrderController.createOrder);
+    router.get('/orders/:id', authenticateUser, OrderController.getOrder);
+    router.put('/orders/:id', authenticateUser, OrderController.updateOrder);
+    router.delete('/orders/:id', authenticateUser, OrderController.deleteOrder);
 
     // Menu routes
-    api.post('/menu', authenticateUser, MenuController.addMenuItem);
-    api.get('/menu/:id', MenuController.getMenuItem);
-    api.put('/menu/:id', authenticateUser, MenuController.updateItem);
-    api.delete('/menu/:id', authenticateUser, MenuController.deleteMenuItem);
+    router.post('/menu', authenticateUser, MenuController.addMenuItem);
+    router.get('/menu/:id', MenuController.getMenuItem);
+    router.put('/menu/:id', authenticateUser, MenuController.updateItem);
+    router.delete('/menu/:id', authenticateUser, MenuController.deleteMenuItem);
+
+    // Use the order routes from another file
+    router.use('/orders', orderRoutes);
 
     // Handle 404 errors
-    api.all('*', (req, res, next) => {
+    router.all('*', (req, res, next) => {
         errorResponse(new APIError(404, `Cannot ${req.method} ${req.url}`), req, res, next);
-
     });
 
-    //Handle other errors
-    api.use(errorResponse);
+    // Handle other errors
+    router.use(errorResponse);
 
+    // Apply the routes to the Express app
+    api.use(router);
 };
-
 
 export default injectRoutes;
