@@ -1,4 +1,4 @@
-// Home slider animation
+// Initialize Swiper for Home Slider
 var swiper = new Swiper(".mySwiper", {
   spaceBetween: 30,
   centeredSlides: true,
@@ -16,18 +16,14 @@ var swiper = new Swiper(".mySwiper", {
 // Cart Functionality
 let cart = [];
 
-// Open/Close Cart
+// Create Cart UI Elements
 const cartIcon = document.querySelector('.fa-shopping-cart');
-const cartCounter = document.createElement('span');
-cartCounter.classList.add('cart-counter');
-cartIcon.appendChild(cartCounter);  // Adding counter to the cart icon
-
 const cartContainer = document.createElement('div');
 cartContainer.classList.add('cart-container');
-cartContainer.style.display = 'none';  // Hide cart initially
+cartContainer.style.display = 'none';
 document.body.appendChild(cartContainer);
 
-// Update the Cart UI
+// Function to update the Cart UI
 function updateCartUI() {
   cartContainer.innerHTML = `
     <div class="cart-header">
@@ -49,18 +45,21 @@ function updateCartUI() {
   `;
 
   // Update cart icon counter
+  const cartCounter = cartIcon.querySelector('.cart-counter') || document.createElement('span');
+  cartCounter.classList.add('cart-counter');
   cartCounter.innerText = cart.length;
+  if (!cartIcon.contains(cartCounter)) {
+    cartIcon.appendChild(cartCounter);
+  }
 
-  // Remove item functionality
-  const removeButtons = document.querySelectorAll('.remove-item');
-  removeButtons.forEach(button => {
+  // Attach event listeners to remove buttons
+  document.querySelectorAll('.remove-item').forEach(button => {
     button.addEventListener('click', (e) => {
-      const index = e.target.dataset.index;
-      removeFromCart(index);
+      removeFromCart(e.target.dataset.index);
     });
   });
 
-  // Close cart functionality
+  // Attach event listener to close cart button
   document.querySelector('.close-cart').addEventListener('click', () => {
     cartContainer.style.display = 'none';
   });
@@ -79,16 +78,16 @@ function removeFromCart(index) {
   updateCartUI();
 }
 
-// Event Listener to open/close the cart when clicking the cart icon
+// Toggle Cart Visibility
 cartIcon.addEventListener('click', () => {
   cartContainer.style.display = cartContainer.style.display === 'none' ? 'block' : 'none';
 });
 
-// Example: Adding items to cart (this should be tied to the "Order Now" button on your page)
-document.querySelectorAll('.btn').forEach(button => {
+// Add Items to Cart from Buttons
+document.querySelectorAll('.btn.add-t-cart').forEach(button => {
   button.addEventListener('click', (e) => {
-    e.preventDefault();  // Prevents default link behavior
-    const card = button.closest('.card');  // Find the nearest card element
+    e.preventDefault();  // Prevent default link behavior
+    const card = button.closest('.card');
     const item = {
       name: card.querySelector('h3').innerText,
       price: parseFloat(card.querySelector('h2').innerText.replace('$', ''))
@@ -97,42 +96,88 @@ document.querySelectorAll('.btn').forEach(button => {
   });
 });
 
-
-// Show confirmation form
+// Show Order Confirmation
 function showOrderConfirmation() {
   const orderSummary = document.getElementById('order-summary');
   orderSummary.innerHTML = cart.map(item => `
-    <Li>
+    <li>
       <span>${item.name}</span>
       <span>$${item.price.toFixed(2)}</span>
-    </Li>
-    `).join('');
+    </li>
+  `).join('');
 
-    document.getElementById('order-confirmation').style.display = 'block';
-
+  document.getElementById('order-confirmation').style.display = 'block';
 }
 
-// Event Listener for "Add to Cart" button
-document.querySelectorAll(.btn).forEach(button => {
+// Event Listener for Order Confirmation
+document.querySelectorAll('.btn.add-t-cart').forEach(button => {
   button.addEventListener('click', (e) => {
     e.preventDefault();
     showOrderConfirmation();
   });
 });
 
-
-// Event Listener for canceling the order
+// Event Listener for Canceling the Order
 document.getElementById('cancel-order').addEventListener('click', () => {
   document.getElementById('order-confirmation').style.display = 'none';
-
 });
 
-// Handle form submission
+// Handle Form Submission
 document.getElementById('order-form').addEventListener('submit', (e) => {
-  e.preventDefault()
-  // Handle form submission here (e.g. send data to server)
+  e.preventDefault();
+  // Handle form submission here (e.g., send data to server)
   alert('Order submitted successfully!');
   cart = [];
   updateCartUI();
   document.getElementById('order-confirmation').style.display = 'none';
-})
+});
+
+// Search Functionality
+const searchIcon = document.querySelector('.fa-search');
+const searchContainer = document.createElement('div');
+searchContainer.classList.add('search-container');
+document.body.appendChild(searchContainer);
+
+// Function to Update Search Container
+function updateSearch() {
+  searchContainer.innerHTML = `
+    <div class="search-header">
+      <h3>Search</h3>
+      <button id="close-search" class="close-search">X</button>
+    </div>
+    <input type="text" id="search-input" name="search" placeholder="Search for Items..." class="search-input">
+    <button id="search-submit" class="search-submit">Search</button>
+  `;
+  searchContainer.style.display = 'none';  // Hide initially
+}
+
+// Toggle Search Container Visibility
+searchIcon.addEventListener('click', () => {
+  if (searchContainer.style.display === 'none') {
+    updateSearch();  // Ensure search template is up to date
+    searchContainer.style.display = 'block';
+  } else {
+    searchContainer.style.display = 'none';
+  }
+});
+
+// Close Search Container on Click Outside
+document.addEventListener('click', (e) => {
+  if (!searchContainer.contains(e.target) && e.target !== searchIcon) {
+    searchContainer.style.display = 'none';
+  }
+});
+
+// Perform Search
+document.addEventListener('click', (e) => {
+  if (e.target && e.target.id === 'search-submit') {
+    const searchTerm = document.getElementById('search-input').value.toLowerCase();
+    document.querySelectorAll('.card').forEach(card => {
+      const itemName = card.querySelector('h3').innerText.toLowerCase();
+      card.style.display = itemName.includes(searchTerm) ? '' : 'none';
+    });
+  }
+});
+
+// Initial setup
+updateSearch();
