@@ -2,10 +2,12 @@ import { Router } from 'express';
 import RestaurantController from '../controllers/RestaurantController.js';
 import OrderController from '../controllers/OrderController.js';
 import MenuController from '../controllers/MenuController.js';
-import { authenticateUser } from '../middlewares/auth.js';
+import authenticateUser from '../middlewares/auth.js';
 import { APIError, errorResponse } from '../middlewares/error.js';
 import orderRoutes from './orderRoutes.js'; // Ensure the file name is correct
-
+import paymentRoutes from './payment.js'; // Import the payment routes
+import session from 'express-session';
+import passport from '../middlewares/auth.js';
 /**
  * Injects routes with their handlers to the given Express application.
  * @param {Express} api
@@ -36,6 +38,9 @@ const injectRoutes = (api) => {
 
     // Use the order routes from another file
     router.use('/orders', orderRoutes);
+
+    // Inject payment routes
+    router.use('/payments', paymentRoutes);  // <-- Add this line to include payment routes
 
     // Handle 404 errors
     router.all('*', (req, res, next) => {

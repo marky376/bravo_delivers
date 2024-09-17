@@ -916,8 +916,11 @@
                 <!-- Order items will be dynamically inserted here -->
             </ul>
 
+            <h4>Total: $<span id="total-price"></span></h4>
+
             <button type="submit">Confirm Order</button>
             <button type="button" id="cancel-order">Cancel</button>
+            <button id="pay_button">Pay Now</button>
         </form>
     </div>
 </div>
@@ -977,5 +980,6 @@
 
 <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 <script src="main.js"></script>
+<script src="https://js.stripe.com/v3/"></script>
 </body>
 </html>

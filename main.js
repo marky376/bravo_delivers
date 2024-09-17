@@ -96,41 +96,52 @@ document.querySelectorAll('.btn.add-t-cart').forEach(button => {
   });
 });
 
-// Show Order Confirmation
+// Show order confirmation
 function showOrderConfirmation() {
   const orderSummary = document.getElementById('order-summary');
+  const totalPriceElement = document.getElementById('total-price');
+
+  // Generating the order summary dynamically based on the cart contents
   orderSummary.innerHTML = cart.map(item => `
     <li>
       <span>${item.name}</span>
       <span>$${item.price.toFixed(2)}</span>
     </li>
-  `).join('');
+    `).join('');
 
-  document.getElementById('order-confirmation').style.display = 'block';
+    // Calculating the total price
+    const totalPrice = cart.reduce((acc, item) => acc + item.price, 0).toFixed(2);
+    totalPriceElement.innerText = `$${totalPrice}`;
+
+    // Displaying the order confirmation
+    document.getElementById('order-configuration').style.display = 'block';
+
+    // Event Listener for Order Confirmation
+    document.querySelectorAll('.btn.add-to-cart').forEach(button => {
+      button.addEventListener('click', (e) => {
+        e.preventDefault();
+        showOrderConfirmation();
+      });
+    });
+
+    // Event Listener for Canceling the order
+    document.getElementById('cancel-order').addEventListener('click', () => {
+      document.getElementById('order-confirmation').style.display = 'none';
+      
+    })
+
+
+    // Handle Form Submission
+    document.getElementById('order-form').addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // Collect form data 
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const address = document.getElementById('address').value;
+
+    })
 }
-
-// Event Listener for Order Confirmation
-document.querySelectorAll('.btn.add-t-cart').forEach(button => {
-  button.addEventListener('click', (e) => {
-    e.preventDefault();
-    showOrderConfirmation();
-  });
-});
-
-// Event Listener for Canceling the Order
-document.getElementById('cancel-order').addEventListener('click', () => {
-  document.getElementById('order-confirmation').style.display = 'none';
-});
-
-// Handle Form Submission
-document.getElementById('order-form').addEventListener('submit', (e) => {
-  e.preventDefault();
-  // Handle form submission here (e.g., send data to server)
-  alert('Order submitted successfully!');
-  cart = [];
-  updateCartUI();
-  document.getElementById('order-confirmation').style.display = 'none';
-});
 
 // Search Functionality
 const searchIcon = document.querySelector('.fa-search');
@@ -181,3 +192,46 @@ document.addEventListener('click', (e) => {
 
 // Initial setup
 updateSearch();
+
+
+const stripe = Stripe('pk_test_51Pzb3XB7AYqCaePkM51DvR6ejjYIjx2JpTSrW7zFCtLwqjwASjRe8SSfiwspvbAchIomzUweN1d9HSlFSVDp9Njl0066eeeJqU');
+
+document.getElementById('pay-button').addEventListener('click', async () => {
+  try {
+    // Fetching the payment intent from the backend
+    const response = await fetch('/api/payment/create-payment-intent', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ amount: 5000 }),
+    });
+    const { clientSecret } = await response.json();
+
+    // Use Stripe.js to handle the payment
+    const { error } = await stripe.confirmCardPayment(clientSecret, {
+      payment_method: {
+        card: {
+          // Collecting card details from user input here
+          number: '4242424242424242', // Dummy card
+          exp_month: 12,
+          exp_year: 2024,
+          cvc: '123',
+
+        },
+      },
+    });
+
+    if (error) {
+      console.error('Payment failed:', error);
+      alert('Payment failed. Please try again.');
+
+    } else {
+      alert('Payment successful!');
+
+    }
+     
+  } catch(error) {
+    console.error('Error during payment:', error);
+  }
+});
