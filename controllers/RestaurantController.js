@@ -1,7 +1,9 @@
-import { Request, Response } from 'express';
+import express from 'express';
 import passport from 'passport';
-import User from '../models/User'; // Assuming you have a User model
+import User from '../models/User.js'; // Assuming you have a User model
 
+
+const { Request, Response } = express;
 /**
  * Get the status of the restaurant.
  */

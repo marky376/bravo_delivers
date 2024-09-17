@@ -1,8 +1,10 @@
-import { Request, Response } from 'express';
-import MenuService from '../services/MenuService';
-import OrderService from '../services/OrderService';
-import { APIError } from '../utils/error';
+import express from 'express';
+import MenuService from '../routes/MenuRoutes.js';
+import OrderService from '../routes/orderRoutes.js';
+import { APIError } from '../middlewares/error.js';
 
+
+const { Request, Response } = express;
 /**
  * Create a new order.
  */

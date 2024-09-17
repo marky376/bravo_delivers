@@ -1,7 +1,10 @@
-import { Request, Response } from 'express';
-import MenuService from '../services/MenuService';
-import { APIError } from '../utils/error';
+import express from 'express';
+import MenuRoutes from '../routes/MenuRoutes.js';
+import { APIError } from '../middlewares/error.js';
 import { get } from 'mongoose';
+
+
+const { Request, Response } = express;
 
 /**
  * Get all menu items.
