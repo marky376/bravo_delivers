@@ -1,15 +1,13 @@
 import { Router } from 'express';
-import RestaurantController from '../controllers/RestaurantController.js';
-import OrderController from '../controllers/OrderController.js';
-import MenuController from '../controllers/MenuController.js';
-import authenticateUser from '../middlewares/auth.js';
 import { APIError, errorResponse } from '../middlewares/error.js';
 import orderRoutes from './orderRoutes.js'; // Ensure the file name is correct
 import paymentRoutes from './payment.js'; // Import the payment routes
-import session from 'express-session';
-import passport from '../middlewares/auth.js';
+import RestaurantController from '../controllers/RestaurantController.js';
+import MenuController from '../controllers/MenuController.js';
+import OrderController from '../controllers/OrderController.js'; // Fix the import statement
+
 /**
- * Injects routes with their handlers to the given Express application.
+ * Injects routes with their handlers into the given Express application.
  * @param {Express} api
  */
 const injectRoutes = (api) => {
@@ -22,25 +20,28 @@ const injectRoutes = (api) => {
 
     // Authentication routes
     router.post('/auth/login', RestaurantController.login);
-    router.post('/auth/register', MenuController.register); // Assuming there’s a register method
+    router.post('/auth/register', RestaurantController.register);
 
-    // Protected routes
-    router.post('/orders', authenticateUser, OrderController.createOrder);
-    router.get('/orders/:id', authenticateUser, OrderController.getOrder);
-    router.put('/orders/:id', authenticateUser, OrderController.updateOrder);
-    router.delete('/orders/:id', authenticateUser, OrderController.deleteOrder);
+    // Protected routes (require authentication)
+    router.post('/orders',OrderController.createOrder);
+    router.get('/orders/:id',OrderController.getOrder);
+    router.put('/orders/:id',OrderController.updateOrder);
+    router.delete('/orders/:id',OrderController.deleteOrder);
 
     // Menu routes
-    router.post('/menu', authenticateUser, MenuController.addMenuItem);
-    router.get('/menu/:id', MenuController.getMenuItem);
-    router.put('/menu/:id', authenticateUser, MenuController.updateItem);
-    router.delete('/menu/:id', authenticateUser, MenuController.deleteMenuItem);
+    router.post('/menu',MenuController.addMenuItem);
+    router.get('/menu/:id', MenuController.getMenuItem); // Use getMenuItem here
+    router.put('/menu/:id',MenuController.updateMenuItem); // Fixed method name
+    router.delete('/menu/:id',MenuController.deleteMenuItem);
 
     // Use the order routes from another file
-    router.use('/orders', orderRoutes);
+    router.use('/orders', orderRoutes.createOrder);
+    router.use('/orders', orderRoutes.getOrderById);
+    router.use('/orders', orderRoutes.updateOrder);
+    router.use('/orders', orderRoutes.deleteOrder);
 
     // Inject payment routes
-    router.use('/payments', paymentRoutes);  // <-- Add this line to include payment routes
+    router.use('/payments', paymentRoutes);  // Payment routes are included here
 
     // Handle 404 errors
     router.all('*', (req, res, next) => {
