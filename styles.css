@@ -460,14 +460,14 @@ section {
     resize: none;
 }
 .contact .max-width{
-    background-color: blue;
+    background-color: #ff4500;
     padding: 5rem;
     padding-bottom: 5rem;
     border-radius: 10px;
 
 }
 .contact .max-width .form{
-    background-color: black;
+    background-color: goldenrod;
     border-radius: 6px;
     padding: 15px;
 }
