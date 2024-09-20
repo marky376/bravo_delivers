@@ -1,7 +1,7 @@
 // auth.js
 import passport from 'passport';
 import { Strategy as LocalStrategy } from 'passport-local';
-import User from '../models/User.js'; // Assuming you have a User model
+import User from '../models/User.js'; // Ensure the User model exists and the path is correct
 
 // Configure the local strategy for passport
 passport.use(new LocalStrategy(
@@ -25,14 +25,14 @@ passport.use(new LocalStrategy(
 
 // Serialize user into the session
 passport.serializeUser((user, done) => {
-    done(null, user.id);
+    done(null, user.id);  // Serialize user ID into session
 });
 
 // Deserialize user from the session
 passport.deserializeUser(async (id, done) => {
     try {
-        const user = await User.findByPk(id);
-        done(null, user);
+        const user = await User.findByPk(id);  // Find user by ID
+        done(null, user);  // Pass the user back
     } catch (error) {
         done(error);
     }
