@@ -1,0 +1,33 @@
+{
+    "404": {
+        "code": 404,
+        "message": "Not Found",
+        "description": "The requested resource could not be found but may be available in the future. Subsequent requests by the client are permissible."
+    },
+    "500": {
+        "code": 500,
+        "message": "Internal Server Error",
+        "description": "A generic error message, given when an unexpected condition was encountered and no more specific message is suitable."
+    },
+    "400": {
+        "code": 400,
+        "message": "Bad Request",
+        "description": "The server cannot or will not process the request due to an apparent client error."
+    },
+    "401": {
+        "code": 401,
+        "message": "Unauthorized",
+        "description": "Similar to 403 Forbidden, but specifically for use when authentication is required and has failed or has not yet been provided."
+    },
+    "403": {
+        "code": 403,
+        "message": "Forbidden",
+        "description": "The request was valid, but the server is refusing action. The user might not have the necessary permissions for a resource."
+    },
+    "422": {
+        "code": 422,
+        "message": "Unprocessable Entity",
+        "description": "The request was well-formed but was unable to be followed due to semantic errors."
+    }
+
+}
