@@ -1,5 +1,3 @@
 ﻿{
-  "version": 2,
-  "buildCommand": "npm install",
-  "outputDirectory": "public"
+  "version": 2
 }
