@@ -3,7 +3,15 @@
 
 import server from '../server.js';
 
-export default function handler(req, res) {
-  // Express apps are callable as functions (req, res)
-  return server(req, res);
+export default async function handler(req, res) {
+  try {
+    // Express apps are callable as functions (req, res)
+    return await server(req, res);
+  } catch (error) {
+    console.error('Serverless function error:', error);
+    return res.status(500).json({ 
+      error: 'Internal Server Error',
+      message: error.message 
+    });
+  }
 }

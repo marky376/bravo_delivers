@@ -6,8 +6,20 @@ import 'dotenv/config';
 
 const server = express();
 
+// Initialize middlewares
 injectMiddlewares(server);
+
+// Initialize routes
 injectRoutes(server);
+
+// Error handling middleware
+server.use((err, req, res, next) => {
+  console.error('Server error:', err);
+  res.status(err.statusCode || 500).json({
+    status: 'error',
+    message: err.message || 'Internal Server Error'
+  });
+});
 
 // Start the server only when this file is executed directly (node server.js).
 // When imported (for example by Vercel serverless wrapper), this block will not run.

@@ -22,7 +22,9 @@
     "mysql2": "^3.6.5",
     "bcryptjs": "^2.4.3",
     "jsonwebtoken": "^9.0.2",
-    "cors": "^2.8.5"
+    "cors": "^2.8.5",
+    "passport": "^0.7.0",
+    "passport-local": "^1.0.0"
   },
   "devDependencies": {
     "jest": "^29.7.0"
