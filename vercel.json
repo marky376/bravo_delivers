@@ -1,0 +1,10 @@
+{{
+
+  "version": 2,  "rewrites": [
+
+  "buildCommand": "echo 'No build needed'",    { "source": "/api/(.*)", "destination": "/api/index.js" }
+
+  "outputDirectory": "public",  ]
+
+  "cleanUrls": true}
+}
