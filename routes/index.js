@@ -15,33 +15,27 @@ const injectRoutes = (api) => {
     const router = Router();
 
     // Public routes
-    router.get('/status', RestaurantController.getStatus);
-    router.get('/menu', MenuController.getMenu);
+    router.get('/api/status', RestaurantController.getStatus);
+    router.get('/api/menu', MenuController.getMenu);
 
     // Authentication routes
-    router.post('/auth/login', RestaurantController.login);
-    router.post('/auth/register', RestaurantController.register);
+    router.post('/api/auth/login', RestaurantController.login);
+    router.post('/api/auth/register', RestaurantController.register);
 
     // Protected routes (require authentication)
-    router.post('/orders',OrderController.createOrder);
-    router.get('/orders/:id',OrderController.getOrder);
-    router.put('/orders/:id',OrderController.updateOrder);
-    router.delete('/orders/:id',OrderController.deleteOrder);
+    router.post('/api/orders',OrderController.createOrder);
+    router.get('/api/orders/:id',OrderController.getOrder);
+    router.put('/api/orders/:id',OrderController.updateOrder);
+    router.delete('/api/orders/:id',OrderController.deleteOrder);
 
     // Menu routes
-    router.post('/menu',MenuController.addMenuItem);
-    router.get('/menu/:id', MenuController.getMenuItem); // Use getMenuItem here
-    router.put('/menu/:id',MenuController.updateMenuItem); // Fixed method name
-    router.delete('/menu/:id',MenuController.deleteMenuItem);
-
-    // Use the order routes from another file
-    router.use('/orders', orderRoutes.createOrder);
-    router.use('/orders', orderRoutes.getOrderById);
-    router.use('/orders', orderRoutes.updateOrder);
-    router.use('/orders', orderRoutes.deleteOrder);
+    router.post('/api/menu',MenuController.addMenuItem);
+    router.get('/api/menu/:id', MenuController.getMenuItem); // Use getMenuItem here
+    router.put('/api/menu/:id',MenuController.updateMenuItem); // Fixed method name
+    router.delete('/api/menu/:id',MenuController.deleteMenuItem);
 
     // Inject payment routes
-    router.use('/payments', paymentRoutes);  // Payment routes are included here
+    router.use('/api/payments', paymentRoutes);  // Payment routes are included here
 
     // Handle 404 errors
     router.all('*', (req, res, next) => {

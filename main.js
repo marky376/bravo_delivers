@@ -199,7 +199,7 @@ const stripe = Stripe('pk_test_51Pzb3XB7AYqCaePkM51DvR6ejjYIjx2JpTSrW7zFCtLwqjwA
 document.getElementById('pay-button').addEventListener('click', async () => {
   try {
     // Fetching the payment intent from the backend
-    const response = await fetch('/api/payment/create-payment-intent', {
+    const response = await fetch('/api/payments/create-payment-intent', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'

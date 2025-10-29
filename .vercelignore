@@ -1,0 +1,7 @@
+myenv/
+node_modules/
+.env
+tests/
+*.test.js
+*.test.mjs
+.git/
