@@ -1,12 +1,1 @@
-﻿{{
-
-  "routes": [  "buildCommand": null,
-
-    { "handle": "filesystem" },  "outputDirectory": ".",
-
-    { "src": "/(.*)", "dest": "/index.html" }  "installCommand": "echo 'No install needed'",
-
-  ]  "framework": null
-
-}}
-
+﻿{"routes":[{"handle":"filesystem"},{"src":"/(.*)", "dest":"/index.html"}]}
